@@ -67,12 +67,18 @@ namespace CG_Proj5
 
         private void downButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _screen.Clear(0, 0, 0, 255);
+            mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y, mesh.Position.Z - 0.25f);
+            _screen.Render(camera, mesh);
+            _screen.Present();
         }
 
         private void upButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _screen.Clear(0, 0, 0, 255);
+            mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y, mesh.Position.Z + 0.25f);
+            _screen.Render(camera, mesh);
+            _screen.Present();
         }
 
         private void leftButton_rot_Click(object sender, RoutedEventArgs e)
@@ -175,6 +181,38 @@ namespace CG_Proj5
         {
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X, mesh.Rotation.Y, mesh.Rotation.Z - 0.11f);
+            _screen.Render(camera, mesh);
+            _screen.Present();
+        }
+
+        private void moveLeft_Click(object sender, RoutedEventArgs e)
+        {
+            _screen.Clear(0, 0, 0, 255);
+            mesh.Position = new Vector3(mesh.Position.X - 0.15f, mesh.Position.Y, mesh.Position.Z);
+            _screen.Render(camera, mesh);
+            _screen.Present();
+        }
+
+        private void moveRight_Click(object sender, RoutedEventArgs e)
+        {
+            _screen.Clear(0, 0, 0, 255);
+            mesh.Position = new Vector3(mesh.Position.X + 0.15f, mesh.Position.Y, mesh.Position.Z);
+            _screen.Render(camera, mesh);
+            _screen.Present();
+        }
+
+        private void moveUp_Click(object sender, RoutedEventArgs e)
+        {
+            _screen.Clear(0, 0, 0, 255);
+            mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y - 0.15f, mesh.Position.Z);
+            _screen.Render(camera, mesh);
+            _screen.Present();
+        }
+
+        private void moveDown_Click(object sender, RoutedEventArgs e)
+        {
+            _screen.Clear(0, 0, 0, 255);
+            mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y + 0.15f, mesh.Position.Z);
             _screen.Render(camera, mesh);
             _screen.Present();
         }
