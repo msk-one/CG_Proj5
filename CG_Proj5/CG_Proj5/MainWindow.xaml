@@ -16,15 +16,15 @@
             <Label x:Name="label" Content="Zoom" HorizontalAlignment="Left" Margin="65,9,0,0" VerticalAlignment="Top"/>
             <Label x:Name="label_Copy" Content="Rotate" HorizontalAlignment="Left" Margin="62,119,0,0" VerticalAlignment="Top"/>
             <Button x:Name="upButton_rot" Content="Up" HorizontalAlignment="Left" Margin="45,150,0,0" VerticalAlignment="Top" Width="75" Click="upButton_rot_Click"/>
-            <Button x:Name="downButton_rot" Content="Down" HorizontalAlignment="Left" Margin="45,220,0,0" VerticalAlignment="Top" Width="75" Click="downButton_Click"/>
+            <Button x:Name="downButton_rot" Content="Down" HorizontalAlignment="Left" Margin="45,220,0,0" VerticalAlignment="Top" Width="75" Click="downButton_rot_Click"/>
             <Button x:Name="leftButton_rot" Content="Left" HorizontalAlignment="Left" Margin="10,185,0,0" VerticalAlignment="Top" Width="60" Click="leftButton_rot_Click"/>
             <Button x:Name="rightButton_rot" Content="Right" HorizontalAlignment="Left" Margin="98,185,0,0" VerticalAlignment="Top" Width="60" Click="rightButton_rot_Click"/>
-            <Button x:Name="button" Content="Load sphere" HorizontalAlignment="Left" Margin="20,280,0,0" VerticalAlignment="Top" Width="130" Click="button_Click"/>
-            <Button x:Name="button_Copy" Content="Load cone" HorizontalAlignment="Left" Margin="20,305,0,0" VerticalAlignment="Top" Width="130" Click="button_Copy_Click"/>
-            <Button x:Name="button_Copy1" Content="Load cube" HorizontalAlignment="Left" Margin="20,330,0,0" VerticalAlignment="Top" Width="130" Click="button_Copy1_Click"/>
-            <Button x:Name="button_Copy2" Content="Load cyllinder" HorizontalAlignment="Left" Margin="20,355,0,0" VerticalAlignment="Top" Width="130" Click="button_Copy2_Click"/>
+            <Button x:Name="button_Copy" Content="Load cone" HorizontalAlignment="Left" Margin="13,320,0,0" VerticalAlignment="Top" Width="130" Click="button_Copy_Click"/>
+            <Button x:Name="button_Copy1" Content="Load cube" HorizontalAlignment="Left" Margin="13,345,0,0" VerticalAlignment="Top" Width="130" Click="button_Copy1_Click"/>
+            <Button x:Name="zUpButton" Content="Z up" HorizontalAlignment="Left" Margin="25,255,0,0" VerticalAlignment="Top" Width="45" Click="zUpButton_Click"/>
+            <Button x:Name="zDownButton" Content="Z down" HorizontalAlignment="Left" Margin="98,255,0,0" VerticalAlignment="Top" Width="45" Click="zDownButton_Click"/>
         </Grid>
-        <Canvas x:Name="mainCanvas" HorizontalAlignment="Left" Height="726" VerticalAlignment="Top" Width="850"/>
+        <Image x:Name="mainImage" HorizontalAlignment="Left" Width="850" Height="726" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
