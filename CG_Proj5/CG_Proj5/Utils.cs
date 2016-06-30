@@ -113,6 +113,17 @@ namespace CG_Proj5
             }
         }
 
+        public static Matrix TranslationMatrix(Vector3 T)
+        {
+            return new Matrix(1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, (float)T.X,
+                (float)T.Y, (float)T.Z, 1.0f);
+        }
+
+        public static Matrix ScalingMatrix(Vector3 S)
+        {
+            return new Matrix((float)S.X, 0.0f, 0.0f, 0.0f, 0.0f, (float)S.Y, 0.0f, 0.0f, 0.0f, 0.0f, (float)S.Z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
+        }
+
         public void Render(Camera camera, params Mesh[] meshes)
         {
             var viewMatrix = Matrix.LookAtLH(camera.Position, camera.Target, Vector3.UnitY);
@@ -122,9 +133,7 @@ namespace CG_Proj5
 
             foreach (Mesh mesh in meshes)
             {
-                var worldMatrix = Matrix.RotationYawPitchRoll(mesh.Rotation.Y,
-                                                              mesh.Rotation.X, mesh.Rotation.Z) *
-                                  Matrix.Translation(mesh.Position);
+                var worldMatrix = Matrix.RotationYawPitchRoll(mesh.Rotation.Y, mesh.Rotation.X, mesh.Rotation.Z) * TranslationMatrix(mesh.Position);
 
                 var transformMatrix = worldMatrix * viewMatrix * projectionMatrix;
 
