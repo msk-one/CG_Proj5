@@ -36,13 +36,13 @@ namespace CG_Proj5
 
     public class Screen
     {
-        private byte[] backBuffer;
-        private WriteableBitmap bmp;
+        private byte[] _buffer;
+        private WriteableBitmap wBmp;
 
-        public Screen(WriteableBitmap bmp)
+        public Screen(WriteableBitmap wBmp)
         {
-            this.bmp = bmp;
-            backBuffer = new byte[bmp.PixelWidth * bmp.PixelHeight * 4];
+            this.wBmp = wBmp;
+            _buffer = new byte[wBmp.PixelWidth * wBmp.PixelHeight * 4];
         }
 
         public void DrawBresenham(Vector2 point0, Vector2 point1)
@@ -71,43 +71,42 @@ namespace CG_Proj5
 
         public void Clear(byte r, byte g, byte b, byte a)
         {
-            for (var index = 0; index < backBuffer.Length; index += 4)
+            for (var index = 0; index < _buffer.Length; index += 4)
             {
-                backBuffer[index] = b;
-                backBuffer[index + 1] = g;
-                backBuffer[index + 2] = r;
-                backBuffer[index + 3] = a;
+                _buffer[index] = b;
+                _buffer[index + 1] = g;
+                _buffer[index + 2] = r;
+                _buffer[index + 3] = a;
             }
         }
 
-        public void Present()
+        public void Show()
         {
-            bmp.Lock();
-            bmp.FromByteArray(backBuffer, 0, backBuffer.Length);
-            bmp.Unlock();
+            wBmp.Lock();
+            wBmp.FromByteArray(_buffer, 0, _buffer.Length);
+            wBmp.Unlock();
         }
 
         public void PutPixel(int x, int y, Color4 color)
         {
-            var index = (x + y * bmp.PixelWidth) * 4;
-
-            backBuffer[index] = (byte)(color.Blue * 255);
-            backBuffer[index + 1] = (byte)(color.Green * 255);
-            backBuffer[index + 2] = (byte)(color.Red * 255);
-            backBuffer[index + 3] = (byte)(color.Alpha * 255);
+            var index = (x + y * wBmp.PixelWidth) * 4;
+            _buffer[index] = (byte)(color.Blue * 255);
+            _buffer[index + 1] = (byte)(color.Green * 255);
+            _buffer[index + 2] = (byte)(color.Red * 255);
+            _buffer[index + 3] = (byte)(color.Alpha * 255);
         }
 
         public Vector2 Project(Vector3 coord, Matrix transMat)
         {
             var point = Vector3.TransformCoordinate(coord, transMat);
-            var x = point.X * bmp.PixelWidth + bmp.PixelWidth / 2.0f;
-            var y = -point.Y * bmp.PixelHeight + bmp.PixelHeight / 2.0f;
+            var x = point.X * wBmp.PixelWidth + wBmp.PixelWidth / 2.0f;
+            var y = -point.Y * wBmp.PixelHeight + wBmp.PixelHeight / 2.0f;
             return (new Vector2(x, y));
         }
 
         public void DrawPoint(Vector2 point)
         {
-            if (point.X >= 0 && point.Y >= 0 && point.X < bmp.PixelWidth && point.Y < bmp.PixelHeight)
+            if (point.X >= 0 && point.Y >= 0 && point.X < wBmp.PixelWidth && point.Y < wBmp.PixelHeight)
             {
                 PutPixel((int)point.X, (int)point.Y, new Color4(0.0f, 1.0f, 0.0f, 1.0f));
             }
@@ -124,18 +123,35 @@ namespace CG_Proj5
             return new Matrix((float)S.X, 0.0f, 0.0f, 0.0f, 0.0f, (float)S.Y, 0.0f, 0.0f, 0.0f, 0.0f, (float)S.Z, 0.0f, 0.0f, 0.0f, 0.0f, 1.0f);
         }
 
+        public static Matrix ProjectionMatrix()
+        {
+            var m = Matrix.Identity;
+            float aOV = 60;
+            float N = 1.0f;
+            float F = 100;
+
+            float scale = (float)(1 / Math.Tan(aOV * 0.5 * Math.PI/180));
+            m.M11 = scale;
+            m.M22 = scale;
+
+            m.M33 = -F / (F - N);
+            m.M34 = -1;
+
+            m.M43 = -F * N / (F - N);
+            m.M44 = 0;
+
+            return m;
+        }
+
         public void Render(Camera camera, params Mesh[] meshes)
         {
             var viewMatrix = Matrix.LookAtLH(camera.Position, camera.Target, Vector3.UnitY);
-            var projectionMatrix = Matrix.PerspectiveFovRH(0.78f,
-                                                           (float)bmp.PixelWidth / bmp.PixelHeight,
-                                                           0.01f, 1.0f);
+            var projectionMatrix = ProjectionMatrix();
 
             foreach (Mesh mesh in meshes)
             {
-                var worldMatrix = Matrix.RotationYawPitchRoll(mesh.Rotation.Y, mesh.Rotation.X, mesh.Rotation.Z) * TranslationMatrix(mesh.Position);
-
-                var transformMatrix = worldMatrix * viewMatrix * projectionMatrix;
+                var worldMatrix = Matrix.RotationYawPitchRoll(mesh.Rotation.Y, mesh.Rotation.X, mesh.Rotation.Z)*TranslationMatrix(mesh.Position);
+                var transformMatrix = worldMatrix*viewMatrix*projectionMatrix;
 
                 foreach (var vertex in mesh.Vertices)
                 {
@@ -145,17 +161,16 @@ namespace CG_Proj5
 
                 foreach (var face in mesh.Faces)
                 {
-                    var vertexA = mesh.Vertices[face.v1];
-                    var vertexB = mesh.Vertices[face.v2];
-                    var vertexC = mesh.Vertices[face.v3];
+                    var vA = mesh.Vertices[face.v1];
+                    var vB = mesh.Vertices[face.v2];
+                    var vC = mesh.Vertices[face.v3];
+                    var pA = Project(vA, transformMatrix);
+                    var pB = Project(vB, transformMatrix);
+                    var pC = Project(vC, transformMatrix);
 
-                    var pixelA = Project(vertexA, transformMatrix);
-                    var pixelB = Project(vertexB, transformMatrix);
-                    var pixelC = Project(vertexC, transformMatrix);
-
-                    DrawBresenham(pixelA, pixelB);
-                    DrawBresenham(pixelB, pixelC);
-                    DrawBresenham(pixelC, pixelA);
+                    DrawBresenham(pA, pB);
+                    DrawBresenham(pB, pC);
+                    DrawBresenham(pC, pA);
                 }
             }
         }

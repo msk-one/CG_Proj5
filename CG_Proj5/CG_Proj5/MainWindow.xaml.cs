@@ -70,7 +70,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y, mesh.Position.Z - 0.25f);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void upButton_Click(object sender, RoutedEventArgs e)
@@ -78,7 +78,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y, mesh.Position.Z + 0.25f);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void leftButton_rot_Click(object sender, RoutedEventArgs e)
@@ -86,7 +86,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X, mesh.Rotation.Y - 0.11f, mesh.Rotation.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void upButton_rot_Click(object sender, RoutedEventArgs e)
@@ -94,7 +94,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X + 0.11f, mesh.Rotation.Y, mesh.Rotation.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void rightButton_rot_Click(object sender, RoutedEventArgs e)
@@ -102,7 +102,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X, mesh.Rotation.Y + 0.11f, mesh.Rotation.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void downButton_rot_Click(object sender, RoutedEventArgs e)
@@ -110,7 +110,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X - 0.11f, mesh.Rotation.Y, mesh.Rotation.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
 
@@ -135,7 +135,7 @@ namespace CG_Proj5
 
             _screen.Clear(0, 0, 0, 255);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         //Cube
@@ -166,7 +166,7 @@ namespace CG_Proj5
 
             _screen.Clear(0, 0, 0, 255);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void zUpButton_Click(object sender, RoutedEventArgs e)
@@ -174,7 +174,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X, mesh.Rotation.Y, mesh.Rotation.Z + 0.11f);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void zDownButton_Click(object sender, RoutedEventArgs e)
@@ -182,7 +182,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Rotation = new Vector3(mesh.Rotation.X, mesh.Rotation.Y, mesh.Rotation.Z - 0.11f);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void moveLeft_Click(object sender, RoutedEventArgs e)
@@ -190,7 +190,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Position = new Vector3(mesh.Position.X - 0.15f, mesh.Position.Y, mesh.Position.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void moveRight_Click(object sender, RoutedEventArgs e)
@@ -198,7 +198,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Position = new Vector3(mesh.Position.X + 0.15f, mesh.Position.Y, mesh.Position.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void moveUp_Click(object sender, RoutedEventArgs e)
@@ -206,7 +206,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y - 0.15f, mesh.Position.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
 
         private void moveDown_Click(object sender, RoutedEventArgs e)
@@ -214,7 +214,7 @@ namespace CG_Proj5
             _screen.Clear(0, 0, 0, 255);
             mesh.Position = new Vector3(mesh.Position.X, mesh.Position.Y + 0.15f, mesh.Position.Z);
             _screen.Render(camera, mesh);
-            _screen.Present();
+            _screen.Show();
         }
     }
 }
